@@ -299,7 +299,22 @@ body{
   width:8px;height:8px;border-radius:50%;background:#1a1a2e;
 }
 
-/* Disposition Q12 special colors */
+/* Q12 schedule - time input */
+.time-row{margin-top:14px}
+.time-label{
+  display:block;
+  font-size:13px;
+  font-weight:600;
+  color:#1a1a2e;
+  margin-bottom:6px;
+}
+.time-label .req{color:#e74c3c;font-weight:500;font-size:12px;margin-right:4px}
+.time-input{direction:ltr;text-align:left;max-width:200px;font-weight:600;letter-spacing:0.5px}
+.time-input.invalid{border-color:#e74c3c;box-shadow:0 0 0 3px rgba(231,76,60,0.12)}
+.choice.day-today.selected{background:#25D366;border-color:#25D366}
+.choice.day-today.selected .choice-mark::after{background:#1a1a2e}
+
+/* Disposition Q13 special colors */
 .choice.disp-hot.selected{background:#e74c3c;border-color:#e74c3c}
 .choice.disp-warm.selected{background:#f39c12;border-color:#f39c12}
 .choice.disp-mild.selected{background:#3498db;border-color:#3498db}
@@ -698,16 +713,34 @@ body{
     </div>
   </div>
 
-  <div class="section-divider">סיווג פנימי — המלצה שלך</div>
-
-  <!-- Q12 - Internal disposition -->
+  <!-- Q12 - Schedule interview (day + time) -->
   <div class="card" data-q="q12">
     <div class="q-head">
       <div class="q-num">12</div>
+      <div class="q-text">מתי נקבעה שיחת ההתאמה עם אביב? סמן יום וכתוב שעה.</div>
+    </div>
+    <div class="q-hint">סמן את היום שסוכם עם הליד, ואז כתוב את השעה המדויקת (חובה). אם לא נקבעה שיחה — דלג.</div>
+    <div class="choices" data-key="q12_day" id="dayChoices"></div>
+    <div class="time-row">
+      <label class="time-label" for="q12_time">שעת השיחה <span class="req">*חובה</span></label>
+      <input class="text-input time-input" id="q12_time" type="text" placeholder="למשל: 18:30" autocomplete="off">
+    </div>
+    <div class="tip">
+      <div class="tip-title">💡 לפני שסוגרים מועד:</div>
+      "רק תוודא שאתה בבית, במקום שקט, עם וויפי טוב ומול מחשב — השיחה עם אביב היא כ-30-45 דקות."
+    </div>
+  </div>
+
+  <div class="section-divider">סיווג פנימי — המלצה שלך</div>
+
+  <!-- Q13 - Internal disposition -->
+  <div class="card" data-q="q13">
+    <div class="q-head">
+      <div class="q-num">13</div>
       <div class="q-text">איזה סיווג אתה נותן לליד הזה? מה השלב הבא?</div>
     </div>
     <div class="q-hint">זה סיווג פנימי — עוזר לצוות להבין איך לטפל בליד.</div>
-    <div class="choices" data-key="q12">
+    <div class="choices" data-key="q13">
       <div class="choice disp-hot" data-value="🔥 חם - קבע שיחה מיידית + חובה סרטון חימום"><span class="choice-mark"></span><span>🔥 חם — קבע שיחה עכשיו + חובה סרטון חימום</span></div>
       <div class="choice disp-warm" data-value="🌡️ חמים - שלח סרטון חימום, וודא צפייה, קבע שיחה בהמשך"><span class="choice-mark"></span><span>🌡️ חמים — שלח סרטון, וודא צפייה, קבע שיחה בהמשך</span></div>
       <div class="choice disp-mild" data-value="📚 בשל לוובינר - שלח תזכורת + לינק"><span class="choice-mark"></span><span>📚 בשל לוובינר — שלח תזכורת + לינק</span></div>
@@ -719,7 +752,7 @@ body{
 
 <div class="bottom-bar">
   <button class="reset-btn" onclick="resetForm()">איפוס</button>
-  <div class="progress-mini">מולא: <strong id="filledCount">0</strong>/12</div>
+  <div class="progress-mini">מולא: <strong id="filledCount">0</strong>/13</div>
   <button class="send-btn" id="sendBtn" onclick="sendLead()" disabled>
     <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     שלח לוואטסאפ
@@ -730,7 +763,7 @@ body{
 const WHATSAPP_NUMBER = '972539415600';
 const MAKE_WEBHOOK_URL = 'https://hook.eu2.make.com/sicp59tjwpbx0vrwahska0vuiphfat9b';
 const NOTIFY_EMAIL = 'aviv1988@gmail.com';
-const STORAGE_KEY = 'lead-script-draft-v2';
+const STORAGE_KEY = 'lead-script-draft-v3';
 
 const LABELS = {
   q1:'שם מלא',
@@ -744,15 +777,47 @@ const LABELS = {
   q9:'הבנה שזה עסק',
   q10:'מחויבות להכשרה',
   q11:'מוכנות לראיון',
-  q12:'סיווג המנהל / השלב הבא'
+  q12_day:'יום שיחת ההתאמה',
+  q12_time:'שעת שיחת ההתאמה',
+  q13:'סיווג המנהל / השלב הבא'
 };
 const KEYS = Object.keys(LABELS);
+// Which data keys belong to which card (Q12 has two fields: day + time)
+const CARD_KEYS = {};
+KEYS.forEach(k => { const card = k.split('_')[0]; (CARD_KEYS[card] = CARD_KEYS[card] || []).push(k); });
+const CARDS = Object.keys(CARD_KEYS);
 const answers = {};
 
 try{
   const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
   Object.assign(answers, saved);
 }catch(e){}
+
+// Q12 - build day choices: today + 7 days ahead
+(function buildDayChoices(){
+  const box = document.getElementById('dayChoices');
+  if(!box) return;
+  const DAYS = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
+  const pad = n => String(n).padStart(2,'0');
+  const values = [];
+  for(let i = 0; i <= 7; i++){
+    const d = new Date(); d.setHours(12,0,0,0); d.setDate(d.getDate() + i);
+    const dateStr = pad(d.getDate()) + '/' + pad(d.getMonth()+1) + '/' + d.getFullYear();
+    const dayName = 'יום ' + DAYS[d.getDay()];
+    const value = dayName + ' ' + dateStr;
+    const prefix = i === 0 ? 'היום — ' : (i === 1 ? 'מחר — ' : '');
+    const label = prefix + dayName + ' ' + pad(d.getDate()) + '/' + pad(d.getMonth()+1);
+    const el = document.createElement('div');
+    el.className = 'choice' + (i === 0 ? ' day-today' : '');
+    el.dataset.value = value;
+    el.innerHTML = '<span class="choice-mark"></span><span></span>';
+    el.lastChild.textContent = label;
+    box.appendChild(el);
+    values.push(value);
+  }
+  // A saved day from a previous session that is no longer in range is dropped
+  if(answers.q12_day && !values.includes(answers.q12_day)) delete answers.q12_day;
+})();
 
 // text/textarea inputs
 KEYS.forEach(k => {
@@ -761,6 +826,7 @@ KEYS.forEach(k => {
     if(answers[k]) el.value = answers[k];
     el.addEventListener('input', () => {
       answers[k] = el.value.trim();
+      el.classList.remove('invalid');
       persist(); markCard(k, !!answers[k]); refreshProgress();
     });
   }
@@ -781,18 +847,40 @@ document.querySelectorAll('.choices').forEach(box => {
   if(answers[key]) markCard(key, true);
 });
 
+function isCardFilled(cardId){
+  return CARD_KEYS[cardId].every(k => (answers[k]||'').toString().trim().length > 0);
+}
+
 function markCard(key, filled){
-  const card = document.querySelector('.card[data-q="'+key+'"]');
-  if(card) card.classList.toggle('filled', filled);
+  const cardId = key.split('_')[0];
+  const card = document.querySelector('.card[data-q="'+cardId+'"]');
+  if(!card) return;
+  const isFilled = CARD_KEYS[cardId].length > 1 ? isCardFilled(cardId) : filled;
+  card.classList.toggle('filled', isFilled);
 }
 
 function refreshProgress(){
-  const filled = KEYS.filter(k => (answers[k]||'').toString().trim().length > 0).length;
+  const filled = CARDS.filter(isCardFilled).length;
   document.getElementById('filledCount').textContent = filled;
-  document.getElementById('progressFill').style.width = (filled/KEYS.length*100)+'%';
+  document.getElementById('progressFill').style.width = (filled/CARDS.length*100)+'%';
   // Require at least name + phone + one qualifier to enable send
   const hasEssentials = (answers.q1||'').trim() && (answers.q2||'').trim();
   document.getElementById('sendBtn').disabled = !hasEssentials || filled < 4;
+}
+
+// Q12: if a day was chosen, the rep must also write the time
+function validateSchedule(){
+  const day = (answers.q12_day||'').trim();
+  const time = (answers.q12_time||'').trim();
+  if(day && !time){
+    const el = document.getElementById('q12_time');
+    el.classList.add('invalid');
+    el.scrollIntoView({behavior:'smooth', block:'center'});
+    el.focus();
+    alert('סימנת יום לשיחת ההתאמה — חובה לכתוב גם את השעה (שאלה 12).');
+    return false;
+  }
+  return true;
 }
 
 function persist(){
@@ -819,6 +907,7 @@ function buildMessage(){
 }
 
 function sendLead(){
+  if(!validateSchedule()) return;
   const message = buildMessage();
   const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
   sendToMake();
@@ -842,7 +931,9 @@ function sendToMake(){
     business_understanding: answers.q9 || '',
     training_commitment: answers.q10 || '',
     interview_ready: answers.q11 || '',
-    disposition: answers.q12 || ''
+    interview_day: answers.q12_day || '',
+    interview_time: answers.q12_time || '',
+    disposition: answers.q13 || ''
   };
   fetch(MAKE_WEBHOOK_URL,{
     method:'POST',
@@ -868,6 +959,7 @@ function resetForm(){
   document.querySelectorAll('input,textarea').forEach(el => el.value = '');
   document.querySelectorAll('.choice.selected').forEach(c => c.classList.remove('selected'));
   document.querySelectorAll('.card.filled').forEach(c => c.classList.remove('filled'));
+  document.querySelectorAll('.invalid').forEach(c => c.classList.remove('invalid'));
   refreshProgress();
 }
 
