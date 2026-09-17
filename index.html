@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סקריפט התאמה - מועדון האיקומרס</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Heebo',sans-serif;
+  background:#f4f5f8;
+  color:#1a1a2e;
+  min-height:100vh;
+  padding-bottom:100px;
+  -webkit-font-smoothing:antialiased;
+}
+
+.top-bar{
+  position:sticky;
+  top:0;
+  background:#1a1a2e;
+  color:#fff;
+  padding:14px 20px;
+  text-align:center;
+  font-size:15px;
+  font-weight:700;
+  z-index:50;
+  box-shadow:0 2px 12px rgba(0,0,0,0.15);
+  letter-spacing:0.3px;
+}
+
+.top-bar small{
+  display:block;
+  font-size:11px;
+  font-weight:400;
+  color:#c9c9d9;
+  margin-top:2px;
+}
+
+.container{
+  max-width:720px;
+  margin:0 auto;
+  padding:24px 16px 40px;
+}
+
+.hero{
+  text-align:center;
+  margin-bottom:28px;
+}
+
+.hero h1{
+  font-size:26px;
+  font-weight:800;
+  color:#1a1a2e;
+  margin-bottom:6px;
+}
+
+.hero p{
+  font-size:14px;
+  color:#666;
+  line-height:1.6;
+}
+
+.progress-wrap{
+  height:6px;
+  background:#e0e2ea;
+  border-radius:3px;
+  overflow:hidden;
+  margin-top:14px;
+}
+
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,#25D366,#1fb855);
+  width:0%;
+  transition:width 0.4s ease;
+}
+
+.card{
+  background:#fff;
+  border-radius:14px;
+  padding:22px 22px 24px;
+  margin-bottom:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.04);
+  border:1px solid transparent;
+  transition:all 0.25s;
+}
+
+.card.filled{
+  border-color:#25D366;
+  box-shadow:0 2px 12px rgba(37,211,102,0.12);
+}
+
+.q-head{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+.q-num{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  background:#1a1a2e;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:14px;
+  font-weight:700;
+  flex-shrink:0;
+}
+
+.card.filled .q-num{
+  background:#25D366;
+}
+
+.q-text{
+  font-size:16px;
+  font-weight:600;
+  line-height:1.5;
+  color:#1a1a2e;
+}
+
+.q-hint{
+  font-size:12px;
+  color:#888;
+  margin:6px 0 14px 44px;
+  font-style:italic;
+}
+
+.text-input,
+.textarea-input{
+  width:100%;
+  border:1.5px solid #e0e2ea;
+  border-radius:8px;
+  padding:12px 14px;
+  font-size:15px;
+  font-family:'Heebo',sans-serif;
+  color:#1a1a2e;
+  background:#fafbfc;
+  outline:none;
+  transition:all 0.2s;
+  text-align:right;
+  direction:rtl;
+}
+
+.text-input:focus,
+.textarea-input:focus{
+  border-color:#1a1a2e;
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(26,26,46,0.06);
+}
+
+.textarea-input{
+  resize:vertical;
+  min-height:70px;
+  line-height:1.5;
+}
+
+.phone-row{
+  display:flex;
+  gap:8px;
+  direction:ltr;
+}
+
+.phone-code{
+  padding:12px 14px;
+  background:#f0f1f5;
+  border-radius:8px;
+  border:1.5px solid #e0e2ea;
+  font-size:14px;
+  color:#666;
+  font-weight:500;
+  white-space:nowrap;
+}
+
+.phone-input{
+  flex:1;
+  direction:ltr;
+  text-align:left;
+}
+
+.choices{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.choice{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
+  border:1.5px solid #e0e2ea;
+  border-radius:8px;
+  background:#fafbfc;
+  cursor:pointer;
+  transition:all 0.2s;
+  text-align:right;
+  font-family:'Heebo',sans-serif;
+  font-size:14.5px;
+  color:#1a1a2e;
+  line-height:1.4;
+}
+
+.choice:hover{
+  border-color:#1a1a2e;
+  background:#fff;
+}
+
+.choice.selected{
+  border-color:#1a1a2e;
+  background:#1a1a2e;
+  color:#fff;
+  font-weight:500;
+}
+
+.choice-mark{
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  border:2px solid #d0d3dc;
+  flex-shrink:0;
+  position:relative;
+  transition:all 0.2s;
+}
+
+.choice.selected .choice-mark{
+  border-color:#fff;
+  background:#fff;
+}
+
+.choice.selected .choice-mark::after{
+  content:'';
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  width:8px;height:8px;
+  border-radius:50%;
+  background:#1a1a2e;
+}
+
+.section-divider{
+  text-align:center;
+  margin:20px 0 12px;
+  font-size:12px;
+  font-weight:600;
+  color:#999;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.section-divider::before,
+.section-divider::after{
+  content:'';
+  display:inline-block;
+  width:60px;
+  height:1px;
+  background:#d0d3dc;
+  vertical-align:middle;
+  margin:0 12px;
+}
+
+.bottom-bar{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  background:#fff;
+  padding:14px 16px;
+  box-shadow:0 -4px 20px rgba(0,0,0,0.08);
+  z-index:60;
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:center;
+}
+
+.progress-mini{
+  flex:1;
+  max-width:200px;
+  font-size:12px;
+  color:#666;
+  text-align:right;
+  font-weight:500;
+}
+
+.progress-mini strong{
+  color:#1a1a2e;
+  font-size:15px;
+  font-weight:700;
+}
+
+.send-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:13px 26px;
+  background:#25D366;
+  color:#fff;
+  border:none;
+  border-radius:50px;
+  font-size:15px;
+  font-weight:700;
+  font-family:'Heebo',sans-serif;
+  cursor:pointer;
+  transition:all 0.25s;
+  box-shadow:0 4px 14px rgba(37,211,102,0.35);
+}
+
+.send-btn:hover{
+  background:#1fb855;
+  transform:translateY(-1px);
+  box-shadow:0 6px 20px rgba(37,211,102,0.45);
+}
+
+.send-btn:disabled{
+  background:#c0c3cc;
+  cursor:not-allowed;
+  box-shadow:none;
+  transform:none;
+}
+
+.send-btn svg{
+  width:20px;height:20px;fill:#fff;
+}
+
+.reset-btn{
+  padding:10px 14px;
+  background:transparent;
+  color:#999;
+  border:1px solid #e0e2ea;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:500;
+  font-family:'Heebo',sans-serif;
+  cursor:pointer;
+  transition:all 0.2s;
+}
+
+.reset-btn:hover{
+  color:#e74c3c;
+  border-color:#e74c3c;
+}
+
+.toast{
+  position:fixed;
+  top:70px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#1a1a2e;
+  color:#fff;
+  padding:10px 20px;
+  border-radius:24px;
+  font-size:13px;
+  font-weight:500;
+  z-index:100;
+  opacity:0;
+  transition:all 0.3s;
+  pointer-events:none;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+.toast.show{
+  opacity:1;
+  top:80px;
+}
+
+@media (max-width:600px){
+  .container{padding:16px 12px 100px}
+  .card{padding:18px 16px 20px}
+  .hero h1{font-size:22px}
+  .q-text{font-size:15px}
+  .choice{font-size:14px;padding:11px 12px}
+  .top-bar{font-size:14px;padding:12px 16px}
+  .send-btn{padding:12px 20px;font-size:14px}
+  .progress-mini{font-size:11px;max-width:120px}
+  .reset-btn{padding:8px 10px;font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  סקריפט התאמה — מועדון האיקומרס
+  <small>לשימוש פנימי של מנהל התוכן • ממלא בזמן / אחרי שיחה עם הליד</small>
+</div>
+
+<div class="toast" id="toast">נשמר אוטומטית ✓</div>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>סקריפט מילוי ליד</h1>
+    <p>12 שאלות. מלא לפי שיחה עם הליד ← בסוף שלח לוואטסאפ בלחיצה אחת.</p>
+    <div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div class="section-divider">רקע ורמת ניסיון</div>
+
+  <!-- Q1 -->
+  <div class="card" data-q="q1">
+    <div class="q-head">
+      <div class="q-num">1</div>
+      <div class="q-text">מה הניסיון שלך בעולם האיקומרס והדרופשיפינג עד היום?</div>
+    </div>
+    <div class="choices" data-key="q1">
+      <div class="choice" data-value="עדיין לא נגעתי בזה"><span class="choice-mark"></span><span>עדיין לא נגעתי בזה</span></div>
+      <div class="choice" data-value="ניסיתי בעבר וזה לא הצליח"><span class="choice-mark"></span><span>ניסיתי בעבר וזה לא הצליח</span></div>
+      <div class="choice" data-value="יש לי חנות שלא באמת מרוויחה"><span class="choice-mark"></span><span>יש לי חנות שלא באמת מרוויחה</span></div>
+      <div class="choice" data-value="יש לי חנות פעילה ורוצה לפרוץ קדימה"><span class="choice-mark"></span><span>יש לי חנות פעילה ורוצה לפרוץ קדימה</span></div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="card" data-q="q2">
+    <div class="q-head">
+      <div class="q-num">2</div>
+      <div class="q-text">האם עקבת אחרי התכנים והסיפור שלי? (יוטיוב / אינסטגרם / פודקאסט)</div>
+    </div>
+    <div class="choices" data-key="q2">
+      <div class="choice" data-value="עוקב פעיל אחרי כל התכנים"><span class="choice-mark"></span><span>עוקב פעיל אחרי כל התכנים</span></div>
+      <div class="choice" data-value="צפיתי בכמה סרטונים"><span class="choice-mark"></span><span>צפיתי בכמה סרטונים</span></div>
+      <div class="choice" data-value="הגעתי אליך היום בפעם הראשונה"><span class="choice-mark"></span><span>הגעתי אליך היום בפעם הראשונה</span></div>
+    </div>
+  </div>
+
+  <div class="section-divider">פרטי זיהוי</div>
+
+  <!-- Q3 -->
+  <div class="card" data-q="q3">
+    <div class="q-head">
+      <div class="q-num">3</div>
+      <div class="q-text">מה השם המלא שלך?</div>
+    </div>
+    <input type="text" class="text-input" id="q3" placeholder="שם פרטי + משפחה">
+  </div>
+
+  <!-- Q4 -->
+  <div class="card" data-q="q4">
+    <div class="q-head">
+      <div class="q-num">4</div>
+      <div class="q-text">מה מספר הוואטסאפ שלך?</div>
+    </div>
+    <div class="q-hint">לקבלת המתנה החינמית + פרטים על התוכנית</div>
+    <div class="phone-row">
+      <div class="phone-code">🇮🇱 +972</div>
+      <input type="tel" class="text-input phone-input" id="q4" placeholder="50-123-4567">
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="card" data-q="q5">
+    <div class="q-head">
+      <div class="q-num">5</div>
+      <div class="q-text">מה שם המשתמש שלך באינסטגרם?</div>
+    </div>
+    <input type="text" class="text-input" id="q5" placeholder="@username">
+  </div>
+
+  <div class="section-divider">רקע אישי ומקצועי</div>
+
+  <!-- Q6 -->
+  <div class="card" data-q="q6">
+    <div class="q-head">
+      <div class="q-num">6</div>
+      <div class="q-text">מה טווח הגילאים שלך?</div>
+    </div>
+    <div class="choices" data-key="q6">
+      <div class="choice" data-value="מתחת ל-25"><span class="choice-mark"></span><span>מתחת ל-25</span></div>
+      <div class="choice" data-value="25-35"><span class="choice-mark"></span><span>25-35</span></div>
+      <div class="choice" data-value="35-45"><span class="choice-mark"></span><span>35-45</span></div>
+      <div class="choice" data-value="45+"><span class="choice-mark"></span><span>45 ומעלה</span></div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="card" data-q="q7">
+    <div class="q-head">
+      <div class="q-num">7</div>
+      <div class="q-text">אם היום איקומרס הוא לא ההכנסה העיקרית שלך — מה התפקיד ותחום העיסוק שלך כרגע?</div>
+    </div>
+    <textarea class="textarea-input" id="q7" placeholder="למשל: מנהל שיווק בסטארטאפ / נהג משאית / שכיר במפעל..."></textarea>
+  </div>
+
+  <div class="section-divider">כאב ומחויבות</div>
+
+  <!-- Q8 -->
+  <div class="card" data-q="q8">
+    <div class="q-head">
+      <div class="q-num">8</div>
+      <div class="q-text">מה הדברים העיקריים שאתה מרגיש שחסרים לך היום כדי להקים או להצמיח משמעותית את החנות שלך?</div>
+    </div>
+    <textarea class="textarea-input" id="q8" placeholder="ידע? הכוונה? כסף? זמן? מנטור?"></textarea>
+  </div>
+
+  <!-- Q9 -->
+  <div class="card" data-q="q9">
+    <div class="q-head">
+      <div class="q-num">9</div>
+      <div class="q-text">בהבנה שמדובר בהקמת עסק אמיתי — כמה אתה מוכן להשקיע במותג האיקומרס שלך כדי שהוא יצליח?</div>
+    </div>
+    <div class="q-hint">התשובה עוזרת לנו להתאים לך את המסלול והתוכנית הכי רלוונטית למצב שלך</div>
+    <div class="choices" data-key="q9">
+      <div class="choice" data-value='עד 5,000 ש"ח'><span class="choice-mark"></span><span>עד 5,000 ש"ח</span></div>
+      <div class="choice" data-value='5,000-15,000 ש"ח'><span class="choice-mark"></span><span>5,000-15,000 ש"ח</span></div>
+      <div class="choice" data-value='15,000-30,000 ש"ח'><span class="choice-mark"></span><span>15,000-30,000 ש"ח</span></div>
+      <div class="choice" data-value='מעל 30,000 ש"ח'><span class="choice-mark"></span><span>מעל 30,000 ש"ח</span></div>
+      <div class="choice" data-value="עדיין לא בטוח"><span class="choice-mark"></span><span>עדיין לא בטוח</span></div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="card" data-q="q10">
+    <div class="q-head">
+      <div class="q-num">10</div>
+      <div class="q-text">האם אתה מבין שאיקומרס הוא עסק לכל דבר — לא "הכנסה פסיבית", ונדרשת השקעה של זמן, מאמץ וכסף כדי להתחיל?</div>
+    </div>
+    <div class="choices" data-key="q10">
+      <div class="choice" data-value="כן, מבין לגמרי ומוכן"><span class="choice-mark"></span><span>כן, מבין לגמרי ומוכן</span></div>
+      <div class="choice" data-value="מבין, אבל רוצה לשמוע עוד לפני שאני מחליט"><span class="choice-mark"></span><span>מבין, אבל רוצה לשמוע עוד לפני שאני מחליט</span></div>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="card" data-q="q11">
+    <div class="q-head">
+      <div class="q-num">11</div>
+      <div class="q-text">במידה ותתקבל לתוכנית — עד כמה אתה מחויב להשקיע בהכשרה שבה אני נותן לך את כל המעטפת ומלמד אותך מא' ועד ת'?</div>
+    </div>
+    <div class="choices" data-key="q11">
+      <div class="choice" data-value="100% מחויב לתת את הכל"><span class="choice-mark"></span><span>100% מחויב לתת את הכל</span></div>
+      <div class="choice" data-value="80% — צריך עוד קצת ביטחון"><span class="choice-mark"></span><span>80% — צריך עוד קצת ביטחון</span></div>
+      <div class="choice" data-value="עדיין מתלבט"><span class="choice-mark"></span><span>עדיין מתלבט</span></div>
+    </div>
+  </div>
+
+  <div class="section-divider">השלב הבא</div>
+
+  <!-- Q12 -->
+  <div class="card" data-q="q12">
+    <div class="q-head">
+      <div class="q-num">12</div>
+      <div class="q-text">השלב הבא הוא ראיון התאמה חינמי ולא מחייב, כ-30-45 דקות.</div>
+    </div>
+    <div class="q-hint">הראיון מתקיים מהבית, במקום שקט עם וויפי טוב, כדי שתפיק את המקסימום מהשיחה. האם אתה מוכן לקבוע ראיון כזה?</div>
+    <div class="choices" data-key="q12">
+      <div class="choice" data-value="כן — קבעו לי בהקדם"><span class="choice-mark"></span><span>כן — קבעו לי בהקדם</span></div>
+      <div class="choice" data-value="כן, אבל צריך עוד פרטים"><span class="choice-mark"></span><span>כן, אבל צריך עוד פרטים</span></div>
+      <div class="choice" data-value="עדיין לא בטוח"><span class="choice-mark"></span><span>עדיין לא בטוח</span></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="bottom-bar">
+  <button class="reset-btn" onclick="resetForm()">איפוס</button>
+  <div class="progress-mini">מולא: <strong id="filledCount">0</strong>/12</div>
+  <button class="send-btn" id="sendBtn" onclick="sendLead()" disabled>
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    שלח לוואטסאפ
+  </button>
+</div>
+
+<script>
+const WHATSAPP_NUMBER = '972539415600';
+const MAKE_WEBHOOK_URL = 'https://hook.eu2.make.com/sicp59tjwpbx0vrwahska0vuiphfat9b';
+const NOTIFY_EMAIL = 'aviv1988@gmail.com';
+const STORAGE_KEY = 'lead-script-draft-v1';
+
+const LABELS = {
+  q1:'ניסיון באיקומרס',
+  q2:'צפייה בתכנים',
+  q3:'שם מלא',
+  q4:'וואטסאפ',
+  q5:'אינסטגרם',
+  q6:'טווח גילאים',
+  q7:'תפקיד נוכחי',
+  q8:'מה חסר',
+  q9:'תקציב להשקעה',
+  q10:'הבנה שזה עסק',
+  q11:'מחויבות להכשרה',
+  q12:'מוכנות לראיון'
+};
+const KEYS = Object.keys(LABELS);
+const answers = {};
+
+// --- init from storage ---
+try{
+  const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+  Object.assign(answers, saved);
+}catch(e){}
+
+// --- wire text/textarea inputs ---
+KEYS.forEach(k => {
+  const el = document.getElementById(k);
+  if(el){
+    if(answers[k]) el.value = answers[k];
+    el.addEventListener('input', () => {
+      answers[k] = el.value.trim();
+      persist();
+      markCard(k, !!answers[k]);
+      refreshProgress();
+    });
+  }
+});
+
+// --- wire choices ---
+document.querySelectorAll('.choices').forEach(box => {
+  const key = box.dataset.key;
+  box.querySelectorAll('.choice').forEach(ch => {
+    if(answers[key] === ch.dataset.value) ch.classList.add('selected');
+    ch.addEventListener('click', () => {
+      box.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+      ch.classList.add('selected');
+      answers[key] = ch.dataset.value;
+      persist();
+      markCard(key, true);
+      refreshProgress();
+    });
+  });
+  if(answers[key]) markCard(key, true);
+});
+
+function markCard(key, filled){
+  const card = document.querySelector('.card[data-q="'+key+'"]');
+  if(!card) return;
+  card.classList.toggle('filled', filled);
+}
+
+function refreshProgress(){
+  const filled = KEYS.filter(k => (answers[k]||'').toString().trim().length > 0).length;
+  document.getElementById('filledCount').textContent = filled;
+  document.getElementById('progressFill').style.width = (filled/KEYS.length*100)+'%';
+  document.getElementById('sendBtn').disabled = filled < 4; // require at least name+phone+something
+}
+
+function persist(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(answers)); }catch(e){}
+  showToast();
+}
+
+let toastTimer;
+function showToast(){
+  const t = document.getElementById('toast');
+  clearTimeout(toastTimer);
+  t.classList.add('show');
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 1200);
+}
+
+function buildMessage(){
+  let msg = '📋 ליד חדש — מועדון האיקומרס\n\n';
+  KEYS.forEach(k => {
+    const v = (answers[k]||'').toString().trim();
+    if(v) msg += LABELS[k] + ': ' + v + '\n';
+  });
+  msg += '\n— נשלח מהסקריפט הפנימי';
+  return msg;
+}
+
+function sendLead(){
+  const message = buildMessage();
+  const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+
+  // fire and forget to Make + email in parallel
+  sendToMake();
+  sendEmail();
+
+  // open WhatsApp
+  window.open(url, '_blank');
+}
+
+function sendToMake(){
+  if(!MAKE_WEBHOOK_URL) return;
+  const payload = {
+    form:'lead-script',
+    timestamp: new Date().toLocaleString('he-IL'),
+    full_name: answers.q3 || '',
+    phone: answers.q4 || '',
+    instagram: answers.q5 || '',
+    experience: answers.q1 || '',
+    content_engagement: answers.q2 || '',
+    age_range: answers.q6 || '',
+    current_job: answers.q7 || '',
+    whats_missing: answers.q8 || '',
+    budget: answers.q9 || '',
+    business_understanding: answers.q10 || '',
+    training_commitment: answers.q11 || '',
+    interview_ready: answers.q12 || ''
+  };
+  fetch(MAKE_WEBHOOK_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  }).catch(()=>{});
+}
+
+function sendEmail(){
+  const data = { _subject:'ליד חדש מהסקריפט: '+(answers.q3||''), _template:'table' };
+  KEYS.forEach(k => { data[LABELS[k]] = answers[k] || ''; });
+  fetch('https://formsubmit.co/ajax/'+NOTIFY_EMAIL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body: JSON.stringify(data)
+  }).catch(()=>{});
+}
+
+function resetForm(){
+  if(!confirm('לאפס את הטופס? המידע הזמני יימחק.')) return;
+  Object.keys(answers).forEach(k => delete answers[k]);
+  try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+  document.querySelectorAll('input,textarea').forEach(el => el.value = '');
+  document.querySelectorAll('.choice.selected').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.card.filled').forEach(c => c.classList.remove('filled'));
+  refreshProgress();
+}
+
+refreshProgress();
+</script>
+
+</body>
+</html>
