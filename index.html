@@ -29,7 +29,6 @@ body{
   font-weight:700;
   z-index:50;
   box-shadow:0 2px 12px rgba(0,0,0,0.15);
-  letter-spacing:0.3px;
 }
 
 .top-bar small{
@@ -43,16 +42,98 @@ body{
 .container{
   max-width:720px;
   margin:0 auto;
-  padding:24px 16px 40px;
+  padding:20px 16px 40px;
 }
 
+/* ====== WARM-UP / OPENING SCRIPTS ====== */
+.warmup{
+  background:linear-gradient(135deg,#fff8e6,#fff3d3);
+  border:1.5px solid #f0c85e;
+  border-radius:16px;
+  padding:20px 20px 22px;
+  margin-bottom:24px;
+  box-shadow:0 4px 20px rgba(240,200,94,0.15);
+}
+
+.warmup-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:#1a1a2e;
+  color:#fff;
+  padding:5px 12px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:10px;
+  letter-spacing:0.3px;
+}
+
+.warmup-title{
+  font-size:17px;
+  font-weight:800;
+  color:#1a1a2e;
+  margin-bottom:6px;
+}
+
+.warmup-intro{
+  font-size:13px;
+  color:#7a6a3a;
+  line-height:1.6;
+  margin-bottom:16px;
+}
+
+.script-label{
+  display:inline-block;
+  background:#1a1a2e;
+  color:#fff;
+  padding:3px 10px;
+  border-radius:12px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.5px;
+  margin-bottom:6px;
+}
+
+.script-label.alt{background:#25D366}
+.script-label.warn{background:#e74c3c}
+
+.script-card{
+  background:#fff;
+  border-radius:10px;
+  padding:12px 14px 14px;
+  margin-bottom:12px;
+  border-right:3px solid #f0c85e;
+  font-size:13.5px;
+  line-height:1.6;
+  color:#333;
+}
+
+.script-card strong{color:#1a1a2e}
+
+.script-card.alt{border-right-color:#25D366}
+.script-card.warn{border-right-color:#e74c3c}
+
+.warmup-goal{
+  background:#1a1a2e;
+  color:#fff;
+  padding:12px 14px;
+  border-radius:10px;
+  font-size:12.5px;
+  line-height:1.6;
+  margin-top:14px;
+}
+
+.warmup-goal b{color:#f0c85e}
+
+/* ====== HERO ====== */
 .hero{
   text-align:center;
-  margin-bottom:28px;
+  margin-bottom:24px;
 }
 
 .hero h1{
-  font-size:26px;
+  font-size:24px;
   font-weight:800;
   color:#1a1a2e;
   margin-bottom:6px;
@@ -79,6 +160,7 @@ body{
   transition:width 0.4s ease;
 }
 
+/* ====== CARDS ====== */
 .card{
   background:#fff;
   border-radius:14px;
@@ -96,9 +178,9 @@ body{
 
 .q-head{
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   gap:12px;
-  margin-bottom:14px;
+  margin-bottom:12px;
 }
 
 .q-num{
@@ -115,15 +197,14 @@ body{
   flex-shrink:0;
 }
 
-.card.filled .q-num{
-  background:#25D366;
-}
+.card.filled .q-num{background:#25D366}
 
 .q-text{
   font-size:16px;
   font-weight:600;
   line-height:1.5;
   color:#1a1a2e;
+  padding-top:4px;
 }
 
 .q-hint{
@@ -158,16 +239,18 @@ body{
 
 .textarea-input{
   resize:vertical;
-  min-height:70px;
-  line-height:1.5;
+  min-height:90px;
+  line-height:1.6;
 }
 
-.phone-row{
-  display:flex;
-  gap:8px;
-  direction:ltr;
+.textarea-input::placeholder{
+  color:#a8adb8;
+  font-style:normal;
+  line-height:1.65;
+  font-size:13.5px;
 }
 
+.phone-row{display:flex;gap:8px;direction:ltr}
 .phone-code{
   padding:12px 14px;
   background:#f0f1f5;
@@ -178,19 +261,9 @@ body{
   font-weight:500;
   white-space:nowrap;
 }
+.phone-input{flex:1;direction:ltr;text-align:left}
 
-.phone-input{
-  flex:1;
-  direction:ltr;
-  text-align:left;
-}
-
-.choices{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
+.choices{display:flex;flex-direction:column;gap:8px}
 .choice{
   display:flex;
   align-items:center;
@@ -207,65 +280,90 @@ body{
   color:#1a1a2e;
   line-height:1.4;
 }
-
-.choice:hover{
-  border-color:#1a1a2e;
-  background:#fff;
-}
-
+.choice:hover{border-color:#1a1a2e;background:#fff}
 .choice.selected{
   border-color:#1a1a2e;
   background:#1a1a2e;
   color:#fff;
   font-weight:500;
 }
-
 .choice-mark{
-  width:20px;
-  height:20px;
-  border-radius:50%;
-  border:2px solid #d0d3dc;
-  flex-shrink:0;
-  position:relative;
-  transition:all 0.2s;
+  width:20px;height:20px;border-radius:50%;
+  border:2px solid #d0d3dc;flex-shrink:0;
+  position:relative;transition:all 0.2s;
 }
-
-.choice.selected .choice-mark{
-  border-color:#fff;
-  background:#fff;
-}
-
+.choice.selected .choice-mark{border-color:#fff;background:#fff}
 .choice.selected .choice-mark::after{
-  content:'';
-  position:absolute;
-  top:50%;left:50%;
+  content:'';position:absolute;top:50%;left:50%;
   transform:translate(-50%,-50%);
-  width:8px;height:8px;
-  border-radius:50%;
-  background:#1a1a2e;
+  width:8px;height:8px;border-radius:50%;background:#1a1a2e;
 }
 
+/* Disposition Q12 special colors */
+.choice.disp-hot.selected{background:#e74c3c;border-color:#e74c3c}
+.choice.disp-warm.selected{background:#f39c12;border-color:#f39c12}
+.choice.disp-mild.selected{background:#3498db;border-color:#3498db}
+.choice.disp-cold.selected{background:#7f8c8d;border-color:#7f8c8d}
+.choice.disp-hot.selected .choice-mark::after,
+.choice.disp-warm.selected .choice-mark::after,
+.choice.disp-mild.selected .choice-mark::after,
+.choice.disp-cold.selected .choice-mark::after{background:#333}
+
+/* ====== TIP BOX ====== */
+.tip{
+  margin-top:14px;
+  background:#fff8e6;
+  border-right:3px solid #f0c85e;
+  border-radius:8px;
+  padding:11px 14px;
+  font-size:13px;
+  line-height:1.65;
+  color:#5c4c1e;
+}
+
+.tip-title{
+  font-weight:700;
+  color:#8a6d1a;
+  margin-bottom:4px;
+  font-size:12px;
+  letter-spacing:0.2px;
+}
+
+.tip ul{list-style:none;padding:0;margin:4px 0 0}
+.tip li{padding:2px 0;position:relative;padding-right:14px}
+.tip li::before{
+  content:'←';
+  position:absolute;
+  right:0;
+  color:#f0a520;
+  font-weight:700;
+}
+
+.tip.pain{
+  background:#ffe8e0;
+  border-right-color:#e74c3c;
+  color:#7a2a1a;
+}
+.tip.pain .tip-title{color:#c0392b}
+.tip.pain li::before{color:#e74c3c}
+
+/* ====== SECTION DIVIDER ====== */
 .section-divider{
   text-align:center;
-  margin:20px 0 12px;
+  margin:22px 0 12px;
   font-size:12px;
-  font-weight:600;
+  font-weight:700;
   color:#999;
-  text-transform:uppercase;
   letter-spacing:1px;
 }
-
 .section-divider::before,
 .section-divider::after{
-  content:'';
-  display:inline-block;
-  width:60px;
-  height:1px;
-  background:#d0d3dc;
-  vertical-align:middle;
-  margin:0 12px;
+  content:'';display:inline-block;
+  width:60px;height:1px;background:#d0d3dc;
+  vertical-align:middle;margin:0 12px;
 }
 
+/* ====== BOTTOM BAR ====== */
 .bottom-bar{
   position:fixed;
   bottom:0;left:0;right:0;
@@ -287,12 +385,7 @@ body{
   text-align:right;
   font-weight:500;
 }
-
-.progress-mini strong{
-  color:#1a1a2e;
-  font-size:15px;
-  font-weight:700;
-}
+.progress-mini strong{color:#1a1a2e;font-size:15px;font-weight:700}
 
 .send-btn{
   display:inline-flex;
@@ -310,23 +403,14 @@ body{
   transition:all 0.25s;
   box-shadow:0 4px 14px rgba(37,211,102,0.35);
 }
-
 .send-btn:hover{
-  background:#1fb855;
-  transform:translateY(-1px);
+  background:#1fb855;transform:translateY(-1px);
   box-shadow:0 6px 20px rgba(37,211,102,0.45);
 }
-
 .send-btn:disabled{
-  background:#c0c3cc;
-  cursor:not-allowed;
-  box-shadow:none;
-  transform:none;
+  background:#c0c3cc;cursor:not-allowed;box-shadow:none;transform:none;
 }
-
-.send-btn svg{
-  width:20px;height:20px;fill:#fff;
-}
+.send-btn svg{width:20px;height:20px;fill:#fff}
 
 .reset-btn{
   padding:10px 14px;
@@ -340,12 +424,9 @@ body{
   cursor:pointer;
   transition:all 0.2s;
 }
+.reset-btn:hover{color:#e74c3c;border-color:#e74c3c}
 
-.reset-btn:hover{
-  color:#e74c3c;
-  border-color:#e74c3c;
-}
-
+/* ====== TOAST ====== */
 .toast{
   position:fixed;
   top:70px;
@@ -363,22 +444,22 @@ body{
   pointer-events:none;
   box-shadow:0 4px 12px rgba(0,0,0,0.15);
 }
-
-.toast.show{
-  opacity:1;
-  top:80px;
-}
+.toast.show{opacity:1;top:80px}
 
 @media (max-width:600px){
-  .container{padding:16px 12px 100px}
+  .container{padding:14px 12px 100px}
   .card{padding:18px 16px 20px}
+  .warmup{padding:16px 16px 18px}
   .hero h1{font-size:22px}
+  .warmup-title{font-size:16px}
   .q-text{font-size:15px}
   .choice{font-size:14px;padding:11px 12px}
   .top-bar{font-size:14px;padding:12px 16px}
   .send-btn{padding:12px 20px;font-size:14px}
   .progress-mini{font-size:11px;max-width:120px}
   .reset-btn{padding:8px 10px;font-size:11px}
+  .script-card{font-size:13px}
+  .tip{font-size:12.5px}
 }
 </style>
 </head>
@@ -386,12 +467,44 @@ body{
 
 <div class="top-bar">
   סקריפט התאמה — מועדון האיקומרס
-  <small>לשימוש פנימי של מנהל התוכן • ממלא בזמן / אחרי שיחה עם הליד</small>
+  <small>לשימוש פנימי של מנהל התאמה • הליד נרשם לוובינר של אביב</small>
 </div>
 
 <div class="toast" id="toast">נשמר אוטומטית ✓</div>
 
 <div class="container">
+
+  <!-- ============ WARM-UP / OPENING SCRIPTS ============ -->
+  <div class="warmup">
+    <div class="warmup-badge">🎯 זהות שלך: מנהל התאמה — לא מכירות</div>
+    <div class="warmup-title">בחר פתיח שיחה — 2 אופציות מוכנות</div>
+    <div class="warmup-intro">
+      הליד נרשם לוובינר. המטרה שלך: לבדוק ב-5 דקות אם הוא <b>חם</b> מספיק לדלג על הוובינר ולקבוע שיחת התאמה עכשיו. אם כן — לחייב אותו לצפות באחד מהתכנים של אביב לפני, כדי שיגיע מחומם.
+    </div>
+
+    <div class="script-label">פתיח 1 — חמים ואישי</div>
+    <div class="script-card">
+      "היי [שם], מדבר איתך [שם המנהל] מהצוות של אביב מלכה. <strong>אני לא איש מכירות — אני מנהל התאמה.</strong> תפקידי לוודא שהמסלול באמת מתאים לך לפני שאני מקשר אותך עם אביב. יש לך 5 דקות שנעבור על כמה שאלות קצרות ותחליט אחר כך אם זה בכלל בשבילך?"
+    </div>
+
+    <div class="script-label alt">פתיח 2 — ישיר וממקד</div>
+    <div class="script-card alt">
+      "היי [שם], מעולה שנרשמת לוובינר. הסיבה שאני מתקשר אלייך עכשיו זה כי לפעמים אנחנו רואים שאנשים כמוך <strong>פשוט לא צריכים לחכות לוובינר</strong> — הם כבר בשלים לצעד הבא. בוא נבדוק את זה יחד ב-5 דקות, ואם לא רלוונטי — נסגור בכיף. סבבה?"
+    </div>
+
+    <div class="script-label warn">אם יש התנגדות / חשד</div>
+    <div class="script-card warn">
+      "אני מבין את החשש לגמרי. תקשיב — <strong>אני באמת לא מנסה למכור לך כלום. התפקיד שלי הוא לסנן.</strong> יש אנשים שהמסלול פשוט לא מתאים להם ואנחנו לא רוצים לבזבז לאף אחד את הזמן — לא לך ולא לאביב. אם אני מבין ב-5 דקות שזה לא בשבילך — נגיד ביי, וזהו. מקובל?"
+    </div>
+
+    <div class="warmup-goal">
+      <b>מה אתה מחפש בשיחה:</b><br>
+      1. סימני כאב אמיתי (הכנסה, שעמום, תלות בשכיר).<br>
+      2. מוכנות פיננסית — יכולת אמיתית להשקיע.<br>
+      3. הבנה שזה עסק, לא כפתור פסיבי.<br>
+      4. <b>חובה:</b> לפני שהוא נכנס לשיחה עם אביב — לחייב אותו לצפות באחד מהסרטונים של אביב.
+    </div>
+  </div>
 
   <div class="hero">
     <h1>סקריפט מילוי ליד</h1>
@@ -399,15 +512,39 @@ body{
     <div class="progress-wrap"><div class="progress-fill" id="progressFill"></div></div>
   </div>
 
-  <div class="section-divider">רקע ורמת ניסיון</div>
+  <div class="section-divider">פרטי זיהוי</div>
 
-  <!-- Q1 -->
+  <!-- Q1 - Name -->
   <div class="card" data-q="q1">
     <div class="q-head">
       <div class="q-num">1</div>
+      <div class="q-text">מה השם המלא של הליד?</div>
+    </div>
+    <input type="text" class="text-input" id="q1" placeholder="שם פרטי + משפחה">
+  </div>
+
+  <!-- Q2 - Phone -->
+  <div class="card" data-q="q2">
+    <div class="q-head">
+      <div class="q-num">2</div>
+      <div class="q-text">מה מספר הוואטסאפ שלו?</div>
+    </div>
+    <div class="q-hint">לקבלת פרטים על התוכנית + סרטון חימום לפני שיחה עם אביב</div>
+    <div class="phone-row">
+      <div class="phone-code">🇮🇱 +972</div>
+      <input type="tel" class="text-input phone-input" id="q2" placeholder="50-123-4567">
+    </div>
+  </div>
+
+  <div class="section-divider">רקע ורמת ניסיון</div>
+
+  <!-- Q3 - Experience -->
+  <div class="card" data-q="q3">
+    <div class="q-head">
+      <div class="q-num">3</div>
       <div class="q-text">מה הניסיון שלך בעולם האיקומרס והדרופשיפינג עד היום?</div>
     </div>
-    <div class="choices" data-key="q1">
+    <div class="choices" data-key="q3">
       <div class="choice" data-value="עדיין לא נגעתי בזה"><span class="choice-mark"></span><span>עדיין לא נגעתי בזה</span></div>
       <div class="choice" data-value="ניסיתי בעבר וזה לא הצליח"><span class="choice-mark"></span><span>ניסיתי בעבר וזה לא הצליח</span></div>
       <div class="choice" data-value="יש לי חנות שלא באמת מרוויחה"><span class="choice-mark"></span><span>יש לי חנות שלא באמת מרוויחה</span></div>
@@ -415,61 +552,32 @@ body{
     </div>
   </div>
 
-  <!-- Q2 -->
-  <div class="card" data-q="q2">
-    <div class="q-head">
-      <div class="q-num">2</div>
-      <div class="q-text">האם עקבת אחרי התכנים והסיפור שלי? (יוטיוב / אינסטגרם / פודקאסט)</div>
-    </div>
-    <div class="choices" data-key="q2">
-      <div class="choice" data-value="עוקב פעיל אחרי כל התכנים"><span class="choice-mark"></span><span>עוקב פעיל אחרי כל התכנים</span></div>
-      <div class="choice" data-value="צפיתי בכמה סרטונים"><span class="choice-mark"></span><span>צפיתי בכמה סרטונים</span></div>
-      <div class="choice" data-value="הגעתי אליך היום בפעם הראשונה"><span class="choice-mark"></span><span>הגעתי אליך היום בפעם הראשונה</span></div>
-    </div>
-  </div>
-
-  <div class="section-divider">פרטי זיהוי</div>
-
-  <!-- Q3 -->
-  <div class="card" data-q="q3">
-    <div class="q-head">
-      <div class="q-num">3</div>
-      <div class="q-text">מה השם המלא שלך?</div>
-    </div>
-    <input type="text" class="text-input" id="q3" placeholder="שם פרטי + משפחה">
-  </div>
-
-  <!-- Q4 -->
+  <!-- Q4 - Content engagement -->
   <div class="card" data-q="q4">
     <div class="q-head">
       <div class="q-num">4</div>
-      <div class="q-text">מה מספר הוואטסאפ שלך?</div>
+      <div class="q-text">האם עקבת אחרי התכנים והסיפור של אביב? (יוטיוב / אינסטגרם / פודקאסט)</div>
     </div>
-    <div class="q-hint">לקבלת המתנה החינמית + פרטים על התוכנית</div>
-    <div class="phone-row">
-      <div class="phone-code">🇮🇱 +972</div>
-      <input type="tel" class="text-input phone-input" id="q4" placeholder="50-123-4567">
+    <div class="choices" data-key="q4">
+      <div class="choice" data-value="עוקב פעיל אחרי כל התכנים"><span class="choice-mark"></span><span>עוקב פעיל אחרי כל התכנים</span></div>
+      <div class="choice" data-value="צפיתי בכמה סרטונים"><span class="choice-mark"></span><span>צפיתי בכמה סרטונים</span></div>
+      <div class="choice" data-value="הגעתי אליו היום בפעם הראשונה"><span class="choice-mark"></span><span>הגעתי אליו היום בפעם הראשונה</span></div>
     </div>
-  </div>
-
-  <!-- Q5 -->
-  <div class="card" data-q="q5">
-    <div class="q-head">
-      <div class="q-num">5</div>
-      <div class="q-text">מה שם המשתמש שלך באינסטגרם?</div>
+    <div class="tip">
+      <div class="tip-title">💡 טיפ</div>
+      אם ענה "צפיתי בכמה" או "בפעם הראשונה" — <b>חובה לשלוח לו סרטון חימום</b> לפני שיחה עם אביב. תזכיר לעצמך בשלב הסיווג בסוף.
     </div>
-    <input type="text" class="text-input" id="q5" placeholder="@username">
   </div>
 
   <div class="section-divider">רקע אישי ומקצועי</div>
 
-  <!-- Q6 -->
-  <div class="card" data-q="q6">
+  <!-- Q5 - Age range -->
+  <div class="card" data-q="q5">
     <div class="q-head">
-      <div class="q-num">6</div>
+      <div class="q-num">5</div>
       <div class="q-text">מה טווח הגילאים שלך?</div>
     </div>
-    <div class="choices" data-key="q6">
+    <div class="choices" data-key="q5">
       <div class="choice" data-value="מתחת ל-25"><span class="choice-mark"></span><span>מתחת ל-25</span></div>
       <div class="choice" data-value="25-35"><span class="choice-mark"></span><span>25-35</span></div>
       <div class="choice" data-value="35-45"><span class="choice-mark"></span><span>35-45</span></div>
@@ -477,80 +585,133 @@ body{
     </div>
   </div>
 
-  <!-- Q7 -->
+  <!-- Q6 - Current job -->
+  <div class="card" data-q="q6">
+    <div class="q-head">
+      <div class="q-num">6</div>
+      <div class="q-text">אם היום איקומרס הוא לא ההכנסה העיקרית שלך — מה התפקיד ותחום העיסוק שלך כרגע?</div>
+    </div>
+    <textarea class="textarea-input" id="q6" placeholder="למשל: מנהל שיווק בסטארטאפ / נהג משאית / שכיר במפעל / עצמאי שממש נשחק..."></textarea>
+    <div class="tip">
+      <div class="tip-title">💡 שאל בהמשך כדי להעמיק:</div>
+      <ul>
+        <li>"כמה זמן אתה במשרה הזאת?"</li>
+        <li>"אתה מרוצה מההכנסה?"</li>
+        <li>"רואה את עצמך שם עוד 5 שנים?"</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-divider">כאב, פתרון, מחויבות</div>
+
+  <!-- Q7 - Pain / what's missing -->
   <div class="card" data-q="q7">
     <div class="q-head">
       <div class="q-num">7</div>
-      <div class="q-text">אם היום איקומרס הוא לא ההכנסה העיקרית שלך — מה התפקיד ותחום העיסוק שלך כרגע?</div>
+      <div class="q-text">מה הדברים העיקריים שחסרים לו היום כדי להקים או להצמיח משמעותית את החנות שלו?</div>
     </div>
-    <textarea class="textarea-input" id="q7" placeholder="למשל: מנהל שיווק בסטארטאפ / נהג משאית / שכיר במפעל..."></textarea>
+    <textarea class="textarea-input" id="q7" placeholder="ידע? הכוונה? כסף? זמן? מנטור? קהילה? ביטחון עצמי?"></textarea>
+    <div class="tip pain">
+      <div class="tip-title">🔥 לחץ על הכאב — אל תרפה עד שהוא מרגיש את זה:</div>
+      <ul>
+        <li>"מה בעצם עוצר אותך היום מלהרוויח יותר?"</li>
+        <li>"איך זה משפיע על היום-יום שלך ועל המשפחה?"</li>
+        <li>"איפה אתה רואה את עצמך עוד שנה אם כלום לא ישתנה?"</li>
+        <li>"למה דווקא עכשיו החלטת שאתה צריך שינוי?"</li>
+      </ul>
+    </div>
   </div>
 
-  <div class="section-divider">כאב ומחויבות</div>
-
-  <!-- Q8 -->
+  <!-- Q8 - Investment budget -->
   <div class="card" data-q="q8">
     <div class="q-head">
       <div class="q-num">8</div>
-      <div class="q-text">מה הדברים העיקריים שאתה מרגיש שחסרים לך היום כדי להקים או להצמיח משמעותית את החנות שלך?</div>
+      <div class="q-text">בהבנה שמדובר בהקמת עסק אמיתי — כמה הוא מוכן להשקיע במותג האיקומרס שלו כדי שיצליח?</div>
     </div>
-    <textarea class="textarea-input" id="q8" placeholder="ידע? הכוונה? כסף? זמן? מנטור?"></textarea>
-  </div>
-
-  <!-- Q9 -->
-  <div class="card" data-q="q9">
-    <div class="q-head">
-      <div class="q-num">9</div>
-      <div class="q-text">בהבנה שמדובר בהקמת עסק אמיתי — כמה אתה מוכן להשקיע במותג האיקומרס שלך כדי שהוא יצליח?</div>
-    </div>
-    <div class="q-hint">התשובה עוזרת לנו להתאים לך את המסלול והתוכנית הכי רלוונטית למצב שלך</div>
-    <div class="choices" data-key="q9">
+    <div class="q-hint">עוזר להתאים לו את המסלול והתוכנית הכי רלוונטית למצב שלו</div>
+    <div class="choices" data-key="q8">
       <div class="choice" data-value='עד 5,000 ש"ח'><span class="choice-mark"></span><span>עד 5,000 ש"ח</span></div>
       <div class="choice" data-value='5,000-15,000 ש"ח'><span class="choice-mark"></span><span>5,000-15,000 ש"ח</span></div>
       <div class="choice" data-value='15,000-30,000 ש"ח'><span class="choice-mark"></span><span>15,000-30,000 ש"ח</span></div>
       <div class="choice" data-value='מעל 30,000 ש"ח'><span class="choice-mark"></span><span>מעל 30,000 ש"ח</span></div>
       <div class="choice" data-value="עדיין לא בטוח"><span class="choice-mark"></span><span>עדיין לא בטוח</span></div>
     </div>
+    <div class="tip">
+      <div class="tip-title">💡 אם הוא נבהל מהמספר:</div>
+      "זה לא <b>קורס</b> — זה השקעה בעסק. תחשוב על זה כמו על ליסינג לשנה, או על שיפוץ בבית. אני צריך לדעת רק כדי להתאים לך את המסלול הנכון — לא כדי למכור לך משהו עכשיו."
+    </div>
   </div>
 
-  <!-- Q10 -->
-  <div class="card" data-q="q10">
+  <!-- Q9 - Business understanding -->
+  <div class="card" data-q="q9">
     <div class="q-head">
-      <div class="q-num">10</div>
-      <div class="q-text">האם אתה מבין שאיקומרס הוא עסק לכל דבר — לא "הכנסה פסיבית", ונדרשת השקעה של זמן, מאמץ וכסף כדי להתחיל?</div>
+      <div class="q-num">9</div>
+      <div class="q-text">האם הוא מבין שאיקומרס הוא עסק לכל דבר — לא "הכנסה פסיבית", ונדרשת השקעה של זמן, מאמץ וכסף?</div>
     </div>
-    <div class="choices" data-key="q10">
+    <div class="choices" data-key="q9">
       <div class="choice" data-value="כן, מבין לגמרי ומוכן"><span class="choice-mark"></span><span>כן, מבין לגמרי ומוכן</span></div>
       <div class="choice" data-value="מבין, אבל רוצה לשמוע עוד לפני שאני מחליט"><span class="choice-mark"></span><span>מבין, אבל רוצה לשמוע עוד לפני שאני מחליט</span></div>
     </div>
+    <div class="tip">
+      <div class="tip-title">💡 אם הוא חושב שזה פסיבי:</div>
+      "עצור רגע — זה לא Amazon FBA של כפתור לחיצה. זה בניית מותג אמיתי שדורש זמן, מאמץ וכסף בשנה הראשונה. <b>היתרון:</b> מרגע שהוא רץ, הוא באמת רץ — ואז אתה שולט בזמן שלך. אבל בהתחלה צריך להיכנס לזה כמו לכל עסק אמיתי."
+    </div>
   </div>
 
-  <!-- Q11 -->
-  <div class="card" data-q="q11">
+  <!-- Q10 - Training commitment -->
+  <div class="card" data-q="q10">
     <div class="q-head">
-      <div class="q-num">11</div>
-      <div class="q-text">במידה ותתקבל לתוכנית — עד כמה אתה מחויב להשקיע בהכשרה שבה אני נותן לך את כל המעטפת ומלמד אותך מא' ועד ת'?</div>
+      <div class="q-num">10</div>
+      <div class="q-text">במידה ויתקבל לתוכנית — עד כמה הוא מחויב להשקיע בהכשרה של אביב שנותנת לו את כל המעטפת מא' ועד ת'?</div>
     </div>
-    <div class="choices" data-key="q11">
+    <div class="choices" data-key="q10">
       <div class="choice" data-value="100% מחויב לתת את הכל"><span class="choice-mark"></span><span>100% מחויב לתת את הכל</span></div>
       <div class="choice" data-value="80% — צריך עוד קצת ביטחון"><span class="choice-mark"></span><span>80% — צריך עוד קצת ביטחון</span></div>
       <div class="choice" data-value="עדיין מתלבט"><span class="choice-mark"></span><span>עדיין מתלבט</span></div>
     </div>
+    <div class="tip pain">
+      <div class="tip-title">🔥 אם הוא לא 100%:</div>
+      <ul>
+        <li>"מה בדיוק חסר לך כדי להיות 100%?"</li>
+        <li>"מה הפחד הכי גדול שעוצר אותך?"</li>
+        <li><b>אל תעבור הלאה עד שיש לך תשובה ברורה.</b> אביב לא מקבל אנשים ב-60% — זה לא הוגן כלפיהם ולא כלפיו.</li>
+      </ul>
+    </div>
   </div>
 
-  <div class="section-divider">השלב הבא</div>
+  <!-- Q11 - Interview readiness -->
+  <div class="card" data-q="q11">
+    <div class="q-head">
+      <div class="q-num">11</div>
+      <div class="q-text">האם הוא מוכן לקבוע ראיון התאמה חינמי ולא מחייב עם אביב (כ-30-45 דקות)?</div>
+    </div>
+    <div class="q-hint">הראיון מתקיים מהבית, במקום שקט עם וויפי טוב.</div>
+    <div class="choices" data-key="q11">
+      <div class="choice" data-value="כן — קבעו לי בהקדם"><span class="choice-mark"></span><span>כן — קבעו לי בהקדם</span></div>
+      <div class="choice" data-value="כן, אבל צריך עוד פרטים"><span class="choice-mark"></span><span>כן, אבל צריך עוד פרטים</span></div>
+      <div class="choice" data-value="מעדיף לחכות לוובינר"><span class="choice-mark"></span><span>מעדיף לחכות לוובינר</span></div>
+    </div>
+    <div class="tip">
+      <div class="tip-title">💡 אם הוא בעניין — סגור מיד:</div>
+      "מעולה. אני יכול לקבוע לך שיחה עם אביב <b>מחר או ביום ראשון</b> — מה נוח לך?"<br>
+      <em>(הצעה של 2 מועדים ספציפיים סוגרת הרבה יותר מ"מתי נוח לך")</em>
+    </div>
+  </div>
 
-  <!-- Q12 -->
+  <div class="section-divider">סיווג פנימי — המלצה שלך</div>
+
+  <!-- Q12 - Internal disposition -->
   <div class="card" data-q="q12">
     <div class="q-head">
       <div class="q-num">12</div>
-      <div class="q-text">השלב הבא הוא ראיון התאמה חינמי ולא מחייב, כ-30-45 דקות.</div>
+      <div class="q-text">איזה סיווג אתה נותן לליד הזה? מה השלב הבא?</div>
     </div>
-    <div class="q-hint">הראיון מתקיים מהבית, במקום שקט עם וויפי טוב, כדי שתפיק את המקסימום מהשיחה. האם אתה מוכן לקבוע ראיון כזה?</div>
+    <div class="q-hint">זה סיווג פנימי — עוזר לצוות להבין איך לטפל בליד.</div>
     <div class="choices" data-key="q12">
-      <div class="choice" data-value="כן — קבעו לי בהקדם"><span class="choice-mark"></span><span>כן — קבעו לי בהקדם</span></div>
-      <div class="choice" data-value="כן, אבל צריך עוד פרטים"><span class="choice-mark"></span><span>כן, אבל צריך עוד פרטים</span></div>
-      <div class="choice" data-value="עדיין לא בטוח"><span class="choice-mark"></span><span>עדיין לא בטוח</span></div>
+      <div class="choice disp-hot" data-value="🔥 חם - קבע שיחה מיידית + חובה סרטון חימום"><span class="choice-mark"></span><span>🔥 חם — קבע שיחה עכשיו + חובה סרטון חימום</span></div>
+      <div class="choice disp-warm" data-value="🌡️ חמים - שלח סרטון חימום, וודא צפייה, קבע שיחה בהמשך"><span class="choice-mark"></span><span>🌡️ חמים — שלח סרטון, וודא צפייה, קבע שיחה בהמשך</span></div>
+      <div class="choice disp-mild" data-value="📚 בשל לוובינר - שלח תזכורת + לינק"><span class="choice-mark"></span><span>📚 בשל לוובינר — שלח תזכורת + לינק</span></div>
+      <div class="choice disp-cold" data-value="❄️ לא בשל / לא מתאים - הסר"><span class="choice-mark"></span><span>❄️ לא בשל / לא מתאים — הסר</span></div>
     </div>
   </div>
 
@@ -569,46 +730,43 @@ body{
 const WHATSAPP_NUMBER = '972539415600';
 const MAKE_WEBHOOK_URL = 'https://hook.eu2.make.com/sicp59tjwpbx0vrwahska0vuiphfat9b';
 const NOTIFY_EMAIL = 'aviv1988@gmail.com';
-const STORAGE_KEY = 'lead-script-draft-v1';
+const STORAGE_KEY = 'lead-script-draft-v2';
 
 const LABELS = {
-  q1:'ניסיון באיקומרס',
-  q2:'צפייה בתכנים',
-  q3:'שם מלא',
-  q4:'וואטסאפ',
-  q5:'אינסטגרם',
-  q6:'טווח גילאים',
-  q7:'תפקיד נוכחי',
-  q8:'מה חסר',
-  q9:'תקציב להשקעה',
-  q10:'הבנה שזה עסק',
-  q11:'מחויבות להכשרה',
-  q12:'מוכנות לראיון'
+  q1:'שם מלא',
+  q2:'וואטסאפ',
+  q3:'ניסיון באיקומרס',
+  q4:'צפייה בתכנים',
+  q5:'טווח גילאים',
+  q6:'תפקיד נוכחי',
+  q7:'מה חסר לו (כאב)',
+  q8:'תקציב להשקעה',
+  q9:'הבנה שזה עסק',
+  q10:'מחויבות להכשרה',
+  q11:'מוכנות לראיון',
+  q12:'סיווג המנהל / השלב הבא'
 };
 const KEYS = Object.keys(LABELS);
 const answers = {};
 
-// --- init from storage ---
 try{
   const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
   Object.assign(answers, saved);
 }catch(e){}
 
-// --- wire text/textarea inputs ---
+// text/textarea inputs
 KEYS.forEach(k => {
   const el = document.getElementById(k);
   if(el){
     if(answers[k]) el.value = answers[k];
     el.addEventListener('input', () => {
       answers[k] = el.value.trim();
-      persist();
-      markCard(k, !!answers[k]);
-      refreshProgress();
+      persist(); markCard(k, !!answers[k]); refreshProgress();
     });
   }
 });
 
-// --- wire choices ---
+// choice groups
 document.querySelectorAll('.choices').forEach(box => {
   const key = box.dataset.key;
   box.querySelectorAll('.choice').forEach(ch => {
@@ -617,9 +775,7 @@ document.querySelectorAll('.choices').forEach(box => {
       box.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
       ch.classList.add('selected');
       answers[key] = ch.dataset.value;
-      persist();
-      markCard(key, true);
-      refreshProgress();
+      persist(); markCard(key, true); refreshProgress();
     });
   });
   if(answers[key]) markCard(key, true);
@@ -627,15 +783,16 @@ document.querySelectorAll('.choices').forEach(box => {
 
 function markCard(key, filled){
   const card = document.querySelector('.card[data-q="'+key+'"]');
-  if(!card) return;
-  card.classList.toggle('filled', filled);
+  if(card) card.classList.toggle('filled', filled);
 }
 
 function refreshProgress(){
   const filled = KEYS.filter(k => (answers[k]||'').toString().trim().length > 0).length;
   document.getElementById('filledCount').textContent = filled;
   document.getElementById('progressFill').style.width = (filled/KEYS.length*100)+'%';
-  document.getElementById('sendBtn').disabled = filled < 4; // require at least name+phone+something
+  // Require at least name + phone + one qualifier to enable send
+  const hasEssentials = (answers.q1||'').trim() && (answers.q2||'').trim();
+  document.getElementById('sendBtn').disabled = !hasEssentials || filled < 4;
 }
 
 function persist(){
@@ -652,7 +809,7 @@ function showToast(){
 }
 
 function buildMessage(){
-  let msg = '📋 ליד חדש — מועדון האיקומרס\n\n';
+  let msg = '📋 ליד חדש — מועדון האיקומרס\n(ממולא ע"י מנהל התאמה, אחרי שיחה עם ליד שנרשם לוובינר)\n\n';
   KEYS.forEach(k => {
     const v = (answers[k]||'').toString().trim();
     if(v) msg += LABELS[k] + ': ' + v + '\n';
@@ -664,12 +821,8 @@ function buildMessage(){
 function sendLead(){
   const message = buildMessage();
   const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
-
-  // fire and forget to Make + email in parallel
   sendToMake();
   sendEmail();
-
-  // open WhatsApp
   window.open(url, '_blank');
 }
 
@@ -678,18 +831,18 @@ function sendToMake(){
   const payload = {
     form:'lead-script',
     timestamp: new Date().toLocaleString('he-IL'),
-    full_name: answers.q3 || '',
-    phone: answers.q4 || '',
-    instagram: answers.q5 || '',
-    experience: answers.q1 || '',
-    content_engagement: answers.q2 || '',
-    age_range: answers.q6 || '',
-    current_job: answers.q7 || '',
-    whats_missing: answers.q8 || '',
-    budget: answers.q9 || '',
-    business_understanding: answers.q10 || '',
-    training_commitment: answers.q11 || '',
-    interview_ready: answers.q12 || ''
+    full_name: answers.q1 || '',
+    phone: answers.q2 || '',
+    experience: answers.q3 || '',
+    content_engagement: answers.q4 || '',
+    age_range: answers.q5 || '',
+    current_job: answers.q6 || '',
+    whats_missing: answers.q7 || '',
+    budget: answers.q8 || '',
+    business_understanding: answers.q9 || '',
+    training_commitment: answers.q10 || '',
+    interview_ready: answers.q11 || '',
+    disposition: answers.q12 || ''
   };
   fetch(MAKE_WEBHOOK_URL,{
     method:'POST',
@@ -699,7 +852,7 @@ function sendToMake(){
 }
 
 function sendEmail(){
-  const data = { _subject:'ליד חדש מהסקריפט: '+(answers.q3||''), _template:'table' };
+  const data = { _subject:'ליד חדש מהסקריפט: '+(answers.q1||''), _template:'table' };
   KEYS.forEach(k => { data[LABELS[k]] = answers[k] || ''; });
   fetch('https://formsubmit.co/ajax/'+NOTIFY_EMAIL,{
     method:'POST',
